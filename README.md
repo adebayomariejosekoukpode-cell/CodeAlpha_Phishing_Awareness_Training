@@ -164,5 +164,5 @@ This module is intended for **educational and awareness purposes only**. All phi
 
 ## Author
 
-**Marie-José** — Cybersecurity Intern @CodeAlpha  
+**KOUKPODE Adébayo Marie-José** — Cybersecurity Intern @CodeAlpha  
 IFRI — Université d'Abomey-Calavi, Benin
