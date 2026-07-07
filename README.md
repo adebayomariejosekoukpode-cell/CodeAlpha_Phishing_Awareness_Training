@@ -1,5 +1,3 @@
-# CodeAlpha_Phishing_Awareness_Training
-
 # CodeAlpha — Phishing Awareness Training Module
 
 An interactive web-based training module designed to educate users about phishing attacks, social engineering tactics, and cybersecurity best practices.
