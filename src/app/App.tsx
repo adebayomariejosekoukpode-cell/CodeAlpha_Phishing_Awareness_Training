@@ -186,6 +186,26 @@ const QUIZ_QUESTIONS = [
     correct: 3,
     explanation: "Reporting to the security team allows the entire organization to be alerted and the attack to be blocked. Never reply to the attacker or forward the email to colleagues.",
   },
+  {
+    id: 11,
+    type: "multiple",
+    question: "You visit a website with a padlock (HTTPS) that looks exactly like your bank. What should you do?",
+    options: [
+      "Trust it fully — HTTPS means it is secure",
+      "Check the full domain name in the address bar carefully",
+      "Log in since the design looks identical",
+      "HTTPS guarantees the site is the real bank",
+    ],
+    correct: 1,
+    explanation: "HTTPS only encrypts the connection — it does NOT verify the site's identity. Always check the full domain carefully. Attackers use HTTPS on fake sites too.",
+  },
+  {
+    id: 12,
+    type: "truefalse",
+    question: "Creating urgency and fear in a message is a common social engineering tactic used in phishing attacks.",
+    correct: true,
+    explanation: "True. Urgency and fear bypass rational thinking, pushing victims to act quickly without verifying. Always pause and verify before clicking any link or providing information.",
+  },
 ];
 
 function SectionTag({ label }: { label: string }) {
@@ -206,7 +226,7 @@ function SectionTag({ label }: { label: string }) {
 export default function App() {
   const [activeSection, setActiveSection] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [quizAnswers, setQuizAnswers] = useState<Record<number, number | boolean | null>>({ 1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null, 10: null });
+  const [quizAnswers, setQuizAnswers] = useState<Record<number, number | boolean | null>>({ 1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null, 10: null, 11: null, 12: null });
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -254,7 +274,7 @@ export default function App() {
   };
 
   const handleResetQuiz = () => {
-    setQuizAnswers({ 1: null, 2: null, 3: null, 4: null, 5: null });
+    setQuizAnswers({ 1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null, 9: null, 10: null, 11: null, 12: null });
     setQuizSubmitted(false);
     setScore(0);
     setShowResult(false);
@@ -568,6 +588,99 @@ export default function App() {
               </div>
             ))}
           </div>
+          {/* Fake Websites Block */}
+          <div
+            className="mt-10 rounded-xl p-6"
+            style={{
+              background: "#0f0f24",
+              border: "1px solid rgba(255,51,51,0.2)",
+            }}
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <div
+                className="p-2 rounded-lg"
+                style={{ background: "rgba(255,51,51,0.08)", border: "1px solid rgba(255,51,51,0.2)" }}
+              >
+                <ExternalLink size={20} style={{ color: "#ff3333" }} />
+              </div>
+              <h3
+                className="text-xl font-bold"
+                style={{ fontFamily: "'Rajdhani', sans-serif", color: "#e8eaf0" }}
+              >
+                Fake Websites — <span style={{ color: "#ff3333" }}>Don't Be Fooled</span>
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {[
+                {
+                  title: "Typosquatting",
+                  icon: "🔤",
+                  description: "Attackers register domains with subtle typos or character substitutions.",
+                  examples: ["paypa1.com → paypal.com", "rn = m (rnicrosoft.com)", "arnazon.com → amazon.com"],
+                  color: "#ff3333",
+                },
+                {
+                  title: "HTTPS ≠ Safe",
+                  icon: "🔒",
+                  description: "A padlock only means the connection is encrypted — not that the site is legitimate.",
+                  examples: ["Phishing sites use HTTPS too", "Attackers get free SSL certificates", "Always verify the full domain"],
+                  color: "#f59e0b",
+                },
+                {
+                  title: "Cloned Design",
+                  icon: "🪞",
+                  description: "Attackers copy the exact visual design of real websites to deceive victims.",
+                  examples: ["Pixel-perfect bank login pages", "Fake Microsoft login portals", "Copied Netflix payment pages"],
+                  color: "#a855f7",
+                },
+              ].map(({ title, icon, description, examples, color }) => (
+                <div
+                  key={title}
+                  className="rounded-lg p-4"
+                  style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${color}22` }}
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-xl">{icon}</span>
+                    <h4
+                      className="font-bold"
+                      style={{ fontFamily: "'Rajdhani', sans-serif", color: "#e8eaf0", fontSize: "1rem" }}
+                    >
+                      {title}
+                    </h4>
+                  </div>
+                  <p className="text-xs mb-3 leading-relaxed" style={{ color: "#9ca3af" }}>
+                    {description}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {examples.map((ex) => (
+                      <li
+                        key={ex}
+                        className="flex items-center gap-2 text-xs"
+                        style={{ color: "#6b7280" }}
+                      >
+                        <span style={{ color, flexShrink: 0 }}>→</span>
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>{ex}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            {/* URL checker tip */}
+            <div
+              className="mt-5 p-4 rounded-lg flex items-start gap-3"
+              style={{ background: "rgba(0,212,255,0.04)", border: "1px solid rgba(0,212,255,0.12)" }}
+            >
+              <Eye size={16} style={{ color: "#00d4ff", flexShrink: 0, marginTop: "2px" }} />
+              <p className="text-xs leading-relaxed" style={{ color: "#9ca3af" }}>
+                <span style={{ color: "#00d4ff", fontWeight: 600 }}>Pro tip: </span>
+                Always check the full URL in your browser's address bar before entering any credentials.
+                Hover over links to preview the destination. When in doubt, type the official URL manually.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -746,6 +859,112 @@ export default function App() {
                   </ul>
                 </div>
               </div>
+            </div>
+          </div>
+          {/* Social Engineering Tactics */}
+          <div className="mt-10 rounded-xl p-6"
+            style={{ background: "#0f0f24", border: "1px solid rgba(255,51,51,0.15)" }}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-lg"
+                style={{ background: "rgba(255,51,51,0.08)", border: "1px solid rgba(255,51,51,0.2)" }}>
+                <User size={20} style={{ color: "#ff3333" }} />
+              </div>
+              <h3 className="text-xl font-bold"
+                style={{ fontFamily: "'Rajdhani', sans-serif", color: "#e8eaf0" }}>
+                Social Engineering <span style={{ color: "#ff3333" }}>Tactics</span>
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { emoji: "⏰", tactic: "Urgency", color: "#ff3333",
+                  description: "Creates time pressure to prevent rational thinking.",
+                  example: '"Your account will be deleted in 24 hours!"' },
+                { emoji: "😨", tactic: "Fear", color: "#f59e0b",
+                  description: "Threatens negative consequences to trigger panic.",
+                  example: '"Suspicious activity detected on your account."' },
+                { emoji: "👔", tactic: "Authority", color: "#a855f7",
+                  description: "Impersonates executives, banks or government agencies.",
+                  example: '"This is your CEO. Wire $10,000 immediately."' },
+                { emoji: "🎁", tactic: "Reward", color: "#22c55e",
+                  description: "Promises prizes or benefits to lure victims.",
+                  example: '"You won an iPhone 16! Click to claim now."' },
+              ].map(({ emoji, tactic, color, description, example }) => (
+                <div key={tactic} className="rounded-lg p-4"
+                  style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${color}22` }}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-lg">{emoji}</span>
+                    <h4 className="font-bold"
+                      style={{ fontFamily: "'Rajdhani', sans-serif", color, fontSize: "1rem" }}>
+                      {tactic}
+                    </h4>
+                  </div>
+                  <p className="text-xs mb-2 leading-relaxed" style={{ color: "#9ca3af" }}>
+                    {description}
+                  </p>
+                  <p className="text-xs px-3 py-2 rounded"
+                    style={{ background: `${color}10`, color: "#6b7280",
+                      border: `1px solid ${color}20`, fontStyle: "italic",
+                      fontFamily: "'JetBrains Mono', monospace" }}>
+                    {example}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Real World Examples */}
+          <div className="mt-6 rounded-xl p-6"
+            style={{ background: "#0f0f24", border: "1px solid rgba(0,212,255,0.15)" }}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 rounded-lg"
+                style={{ background: "rgba(0,212,255,0.08)", border: "1px solid rgba(0,212,255,0.2)" }}>
+                <AlertTriangle size={20} style={{ color: "#00d4ff" }} />
+              </div>
+              <h3 className="text-xl font-bold"
+                style={{ fontFamily: "'Rajdhani', sans-serif", color: "#e8eaf0" }}>
+                Real-World <span style={{ color: "#00d4ff" }}>Examples</span>
+              </h3>
+            </div>
+            <div className="space-y-4">
+              {[
+                { brand: "Netflix", year: "2024", color: "#ff3333",
+                  attack: "Mass email campaign claiming payment failure, redirecting to a fake Netflix login page to harvest credentials and credit card numbers.",
+                  indicators: ["Sender: netflix-billing@secure-update.net", "Urgent payment threat", "Link goes to netflix-secure-login.tk"] },
+                { brand: "Microsoft", year: "2023", color: "#00d4ff",
+                  attack: "Fake Microsoft 365 login page sent via compromised email accounts, targeting enterprise employees to steal corporate credentials.",
+                  indicators: ["Perfect visual clone of Microsoft login", "HTTPS certificate present (but fake domain)", "URL: microsofft-365-login.com"] },
+                { brand: "DHL", year: "2024", color: "#f59e0b",
+                  attack: "SMS phishing (smishing) campaign impersonating DHL, claiming a package was held due to unpaid customs fees with a fake payment link.",
+                  indicators: ["SMS from unknown number", "Short link hiding real destination", "Requests credit card for small fee"] },
+              ].map(({ brand, year, color, attack, indicators }) => (
+                <div key={brand} className="rounded-lg p-4"
+                  style={{ background: "rgba(255,255,255,0.02)", border: `1px solid ${color}22` }}>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-base"
+                        style={{ fontFamily: "'Rajdhani', sans-serif", color }}>
+                        {brand}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded"
+                        style={{ background: `${color}15`, color, border: `1px solid ${color}25`,
+                          fontFamily: "'JetBrains Mono', monospace" }}>
+                        {year}
+                      </span>
+                    </div>
+                    <XCircle size={14} style={{ color: "#ff3333" }} />
+                  </div>
+                  <p className="text-xs mb-3 leading-relaxed" style={{ color: "#9ca3af" }}>{attack}</p>
+                  <div className="space-y-1">
+                    {indicators.map((ind) => (
+                      <div key={ind} className="flex items-center gap-2 text-xs"
+                        style={{ color: "#6b7280" }}>
+                        <AlertTriangle size={10} style={{ color: "#ff3333", flexShrink: 0 }} />
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>{ind}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

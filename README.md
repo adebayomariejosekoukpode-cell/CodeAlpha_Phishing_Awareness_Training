@@ -135,8 +135,8 @@ The quiz contains 10 questions:
 
 | Type            | Count |
 |-----------------|-------|
-| Multiple Choice | 6     |
-| True / False    | 4     |
+| Multiple Choice | 7     |
+| True / False    | 5     |
 
 Each question includes a detailed explanation after submission to reinforce learning.
 
